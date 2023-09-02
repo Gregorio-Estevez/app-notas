@@ -1,0 +1,45 @@
+name: Flujo de Trabajo CI/CD
+
+en:
+  push:
+    branches:
+      - main  # Cambia 'main' por el nombre de tu rama principal
+
+trabajos:
+  construir:
+    corre-en: ubuntu-ultima
+
+    pasos:
+      - nombre: Clonar código
+        usa: actions/checkout@v2
+
+      - nombre: Configurar Node.js
+        usa: actions/setup-node@v2
+        con:
+          version-node: 14  # Cambia a la versión de Node.js que necesites
+
+      - nombre: Instalar Dependencias
+        corre: npm install
+
+      - nombre: Ejecutar Pruebas Unitarias
+        corre: npm run test
+
+      - nombre: Ejecutar ESLint
+        corre: npm run lint
+
+      - nombre: Cargar Datos de Prueba
+        corre: npm run seed  # Asegúrate de que este comando corresponda a la carga de datos de prueba
+
+      - nombre: Construir y Desplegar
+        corre: npm run cluster  # Asegúrate de que este comando corresponda a la construcción y despliegue del proyecto
+
+      - nombre: Limpieza
+        corre: npm ci  # Esto puede ser necesario para eliminar archivos generados durante el proceso
+
+      - nombre: Cargar Artefactos
+        usa: actions/upload-artifact@v2
+        con:
+          nombre: artefactos-proyecto
+          ruta: ruta/a/artefactos  # Cambia 'ruta/a/artefactos' al directorio donde se generan los artefactos del proyecto
+
+  # Puedes agregar más pasos según sea necesario, como la implementación en producción
