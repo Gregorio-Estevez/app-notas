@@ -1,4 +1,4 @@
-name: CI/CD Workflow
+name: CI Workflow
 
 on:
   push:
@@ -10,18 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ${{ github.actor }} is Probando 🚀
-        run: |
-          echo "El actor de GitHub es ${{ github.actor }} y está probando el flujo de trabajo."
-          echo "Este es un mensaje personalizado para el flujo de trabajo."
-
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16 # Actualizado a Node.js versión 16
+          node-version: 16 # La versión de Node.js
 
       - name: Install Dependencies
         run: |
@@ -58,7 +53,7 @@ jobs:
       - name: Cleanup # Puede ser necesario para eliminar archivos generados durante el proceso
         run: npm ci
 
-      - name: Upload Artifacts #Función que se implementa al correr la aplicación localmente
+      - name: Upload Artifacts #Funcion que se implementar al correr el app localmente
         uses: actions/upload-artifact@v2
         with:
           name: project-artifacts
