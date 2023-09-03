@@ -1,45 +1,60 @@
-name: Flujo de Trabajo CI/CD
+name: CI Workflow
 
-en:
+on:
   push:
     branches:
-      - main  # Cambia 'main' por el nombre de tu rama principal
+      - main
 
-trabajos:
-  construir:
-    corre-en: ubuntu-ultima
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-    pasos:
-      - nombre: Clonar código
-        usa: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - nombre: Configurar Node.js
-        usa: actions/setup-node@v2
-        con:
-          version-node: 14  # Cambia a la versión de Node.js que necesites
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14 # La versión de Node.js
 
-      - nombre: Instalar Dependencias
-        corre: npm install
+      - name: Install Dependencies
+        run: |
+          npm install \
+            dtenv@^16.3.1 \
+            body-parser@^1.19.0 \
+            express@^4.17.1 \
+            mongoose@^5.9.10 \
+            promise@^8.1.0 \
+            pug@^3.0.1
 
-      - nombre: Ejecutar Pruebas Unitarias
-        corre: npm run test
+      - name: Install Development Dependencies
+        run: |
+          npm install \
+            cross-env@^7.0.3 \
+            jest@^27.0.6 \
+            supertest@^6.1.3 \
+            eslint@^7.32.0 \
+            eslint-plugin-import@^2.25.3 \
+            eslint-config-google@^0.14.0 --save-dev
 
-      - nombre: Ejecutar ESLint
-        corre: npm run lint
+      - name: Run Unit Tests
+        run: npm run test
 
-      - nombre: Cargar Datos de Prueba
-        corre: npm run seed  # Asegúrate de que este comando corresponda a la carga de datos de prueba
+      - name: Run ESLint
+        run: npm run lint
 
-      - nombre: Construir y Desplegar
-        corre: npm run cluster  # Asegúrate de que este comando corresponda a la construcción y despliegue del proyecto
+      - name: Seed Data
+        run: npm run seed
 
-      - nombre: Limpieza
-        corre: npm ci  # Esto puede ser necesario para eliminar archivos generados durante el proceso
+      - name: Build and Deploy
+        run: npm run cluster
 
-      - nombre: Cargar Artefactos
-        usa: actions/upload-artifact@v2
-        con:
-          nombre: artefactos-proyecto
-          ruta: ruta/a/artefactos  # Cambia 'ruta/a/artefactos' al directorio donde se generan los artefactos del proyecto
+      - name: Cleanup # Puede ser necesario para eliminar archivos generados durante el proceso
+        run: npm ci
 
-  # Puedes agregar más pasos según sea necesario, como la implementación en producción
+      - name: Upload Artifacts #Funcion que se implementar al correr el app localmente
+        uses: actions/upload-artifact@v2
+        with:
+          name: project-artifacts
+          path: path/to/artifacts
