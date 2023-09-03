@@ -44,16 +44,16 @@ jobs:
             eslint-config-google@^0.14.0 --save-dev
 
       - name: Run Unit Tests
-        run: npm run test
+        run: npm test
 
       - name: Run ESLint
-        run: npm run lint
+        run: npm lint
 
       - name: Seed Data
-        run: npm run seed
+        run: npm seed
 
       - name: Build and Deploy
-        run: npm run cluster
+        run: npm cluster
 
       - name: Cleanup # Puede ser necesario para eliminar archivos generados durante el proceso
         run: npm ci
