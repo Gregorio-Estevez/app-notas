@@ -1,4 +1,4 @@
-name: CI Workflow
+name: CI/CD Workflow
 
 on:
   push:
@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: ${{ github.actor }} is Probando 🚀
+        run: |
+          echo "El actor de GitHub es ${{ github.actor }} y está probando el flujo de trabajo."
+          echo "Este es un mensaje personalizado para el flujo de trabajo."
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -53,7 +58,7 @@ jobs:
       - name: Cleanup # Puede ser necesario para eliminar archivos generados durante el proceso
         run: npm ci
 
-      - name: Upload Artifacts #Funcion que se implementar al correr el app localmente
+      - name: Upload Artifacts #Función que se implementa al correr la aplicación localmente
         uses: actions/upload-artifact@v2
         with:
           name: project-artifacts
