@@ -16,17 +16,17 @@ jobs:
           echo "Este es un mensaje personalizado para el flujo de trabajo."
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: 16
 
       - name: Install Dependencies
         run: |
           npm install \
-            dotenv@^16.3.1 \
+            dtenv@^16.3.1 \
             body-parser@^1.19.0 \
             express@^4.17.1 \
             mongoose@^5.9.10 \
@@ -44,21 +44,21 @@ jobs:
             eslint-config-google@^0.14.0 --save-dev
 
       - name: Run Unit Tests
-        run: npm test
+        run: npm run test
 
       - name: Run ESLint
-        run: npm lint
+        run: npm run lint
 
       - name: Seed Data
-        run: npm seed
+        run: npm run seed
 
       - name: Build and Deploy
-        run: npm cluster
+        run: npm run cluster
 
-      - name: Cleanup # Puede ser necesario para eliminar archivos generados durante el proceso
+      - name: Cleanup
         run: npm ci
 
-      - name: Upload Artifacts #Función que se implementa al correr la aplicación localmente
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: project-artifacts
