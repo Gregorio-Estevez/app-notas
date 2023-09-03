@@ -1,65 +1,37 @@
-name: CI/CD Workflow
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: ${{ github.actor }} is Probando 🚀
-        run: |
-          echo "El actor de GitHub es ${{ github.actor }} y está probando el flujo de trabajo."
           echo "Este es un mensaje personalizado para el flujo de trabajo."
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
       - name: Install Dependencies
         run: |
           npm install \
-            dtenv@^16.3.1 \
+            dotenv@^16.3.1 \
             body-parser@^1.19.0 \
             express@^4.17.1 \
             mongoose@^5.9.10 \
-            promise@^8.1.0 \
-            pug@^3.0.1
-
-      - name: Install Development Dependencies
-        run: |
-          npm install \
-            cross-env@^7.0.3 \
-            jest@^27.0.6 \
-            supertest@^6.1.3 \
-            eslint@^7.32.0 \
-            eslint-plugin-import@^2.25.3 \
             eslint-config-google@^0.14.0 --save-dev
-
       - name: Run Unit Tests
-        run: npm run test
+        run: npm test
 
       - name: Run ESLint
-        run: npm run lint
+        run: npm lint
 
       - name: Seed Data
-        run: npm run seed
+        run: npm seed
 
       - name: Build and Deploy
-        run: npm run cluster
+        run: npm cluster
 
-      - name: Cleanup
+      - name: Cleanup # Puede ser necesario para eliminar archivos generados durante el proceso
         run: npm ci
 
-      - name: Upload Artifacts
+      - name: Upload Artifacts #Función que se implementa al correr la aplicación localmente
         uses: actions/upload-artifact@v2
         with:
           name: project-artifacts
-          path: path/to/artifacts
