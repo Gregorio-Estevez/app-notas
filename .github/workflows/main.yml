@@ -16,10 +16,10 @@ jobs:
           echo "Este es un mensaje personalizado para el flujo de trabajo."
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
@@ -44,7 +44,7 @@ jobs:
             eslint-config-google@^0.14.0 --save-dev
 
       - name: Run Unit Tests
-        run: npm test --prefix app-notas/test -- main-test.js
+        run: npx jest app-notas/tests/main.test.js
 
       - name: Run ESLint
         run: npm run lint
@@ -63,3 +63,7 @@ jobs:
         with:
           name: project-artifacts
           path: path/to/artifacts
+
+      - name: Use New URL Parser
+        run: |
+          mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true });
