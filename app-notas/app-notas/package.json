@@ -12,5 +12,12 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.48.0",
+    "eslint-config-google": "^0.14.0",
+    "jest": "^29.6.4",
+    "supertest": "^6.3.3"
+  }
 }
