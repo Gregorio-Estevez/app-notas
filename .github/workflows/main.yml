@@ -44,7 +44,7 @@ jobs:
             eslint-config-google@^0.14.0 --save-dev
 
       - name: Run Unit Tests
-        run: npm test --prefix /package.json
+        run: npm test --prefix 
 
       - name: Run ESLint
         run: npm run lint
