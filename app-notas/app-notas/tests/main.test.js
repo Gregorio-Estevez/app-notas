@@ -1,4 +1,3 @@
-const jest = require("jest");
 const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../app");
@@ -13,7 +12,7 @@ const MONGO_DB_USR = process.env.MONGO_DB_USR;
 const MONGO_DB_PWD = process.env.MONGO_DB_PWD;
 const MONGO_DB_HOST = process.env.MONGO_DB_HOST;
 
-const mongoURI = `mongodb+srv://${MONGO_DB_USR}:${MONGO_DB_PWD}@${MONGO_DB_HOST}`;
+const mongoURI = `mongodb+srv://${MONGO_DB_USR}:${MONGO_DB_PWD}@cl${MONGO_DB_HOST}`;
 
 /* Connecting to the database before each test. */
 beforeAll(async () => {

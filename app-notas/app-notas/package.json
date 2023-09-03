@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "node .\\tests\\main.test.js",
+    "test": "jest",
     "start": "node clusterServer.js",
     "start:dev": "cross-env NODE_ENV=development node server.js",
     "seed": "node seedNotes.js",
@@ -17,6 +17,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.48.0",
     "eslint-config-google": "^0.14.0",
+    "mongodb": "^6.0.0",
     "supertest": "^6.3.3"
   },
   "devDependencies": {
