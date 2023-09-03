@@ -16,10 +16,10 @@ jobs:
           echo "Este es un mensaje personalizado para el flujo de trabajo."
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
