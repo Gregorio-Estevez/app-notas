@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: 16
           context: ./app-notas
+          working-directory: ./app-notas
 
       - name: Install Dependencies
         run: |
@@ -46,7 +47,6 @@ jobs:
 
       - name: Run test
         run: npm run test
-        working-directory: ./app-notas
 
       - name: Run ESLint
         run: npm run lint
