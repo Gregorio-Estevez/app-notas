@@ -43,8 +43,7 @@ jobs:
             eslint-plugin-import@^2.25.3 \
             eslint-config-google@^0.14.0 --save-dev
 
-      - name: Run test
-        run: npm run test -t main.test.js
+      
 
       - name: Run ESLint
         run: npm run lint
@@ -67,3 +66,6 @@ jobs:
       - name: Use New URL Parser
         run: |
           mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true });
+
+          - name: Run test
+        run: npm run test -t main.test.js
