@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          context: ./app-notas
 
       - name: Install Dependencies
         run: |
@@ -42,6 +43,9 @@ jobs:
             eslint@^7.32.0 \
             eslint-plugin-import@^2.25.3 \
             eslint-config-google@^0.14.0 --save-dev
+
+      - name: Run Unit Tests
+        run: npm run test
 
       - name: Run ESLint
         run: npm run lint
