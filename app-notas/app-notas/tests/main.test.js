@@ -56,7 +56,7 @@ const res \= await request\(app\)\.get\("/api/note"\);
 expect\(res\.statusCode\)\.toBe\(200\);
 // Pick the id of any note
 const id \= res\.body\[0\]\.\_id;
-const res2 \= await request\(app\)\.get\(\`/api/note/</span>{id}`);
+const res2 = await request(app).get(`/api/note/</span>{id}`);
     expect(res2.statusCode).toBe(200);
     expect(res2.body).toHaveProperty("title");
     expect(res2.body).toHaveProperty("description");
