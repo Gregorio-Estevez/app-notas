@@ -23,7 +23,6 @@ jobs:
         with:
           node-version: 16
           context: ./app-notas
-          working-directory: ./app-notas
 
       - name: Install Dependencies
         run: |
