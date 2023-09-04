@@ -44,7 +44,7 @@ jobs:
             eslint-config-google@^0.14.0 --save-dev
 
       - name: Run test
-        run: npm test --prefix app-notas
+        run: npm test app-notas
 
       - name: Run ESLint
         run: npm run lint
