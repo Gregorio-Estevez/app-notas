@@ -44,8 +44,8 @@ jobs:
             eslint-plugin-import@^2.25.3 \
             eslint-config-google@^0.14.0 --save-dev
 
-      - name: Run Unit Tests
-        run: npm run test
+      - name: Run test
+        run: npm run test --app-notas
 
       - name: Run ESLint
         run: npm run lint
