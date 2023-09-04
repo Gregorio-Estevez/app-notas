@@ -63,9 +63,11 @@ jobs:
           name: project-artifacts
           path: path/to/artifacts
 
+      - name: Run test
+        run: npm run test -t main.test.js
+
       - name: Use New URL Parser
         run: |
           mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true });
 
-          - name: Run test
-        run: npm run test -t main.test.js
+
