@@ -45,14 +45,10 @@ jobs:
             eslint-plugin-import@^2.25.3 \
             eslint-config-google@^0.14.0 --save-dev
 
-  eslint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: stefanoeb/eslint-action@1.0.2
+
 
       - name: Run ESLint
-        run: npm eslint . --ext .js,.jsx,.ts,.tsx
+        run: npx eslint .
 
       - name: Seed Data
         run: npm run seed
