@@ -46,7 +46,7 @@ jobs:
       
 
       - name: Run ESLint
-        run: npm run lint app-notas/package.json
+        run: eslint . --ext .js,.jsx,.ts,.tsx
 
       - name: Seed Data
         run: npm run seed
