@@ -7,4 +7,7 @@
     "promise": "^8.1.0",
     "pug": "^3.0.1"
   }
+  "scripts": {
+  "lint": "eslint app-notas/package.json"
+}
 }
