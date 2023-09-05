@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: estefanoeb/eslint-action@1.0.2
+      - uses: stefanoeb/eslint-action@1.0.2
 
       - name: Run ESLint
         run: npm eslint . --ext .js,.jsx,.ts,.tsx
