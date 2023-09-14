@@ -1,3 +1,5 @@
+const { Collector, MeterProvider } = require("@opentelemetry/node");
+
 const mongoose = require("mongoose");
 const app = require("./app");
 
