@@ -1,0 +1,7 @@
+MONGO_DB_USR = pyarcomesta
+MONGO_DB_PWD = 1234
+MONGO_DB_HOST = cluster0.8kikncc.mongodb.net/
+PORT = 3000
+PORTLog = 4000
+MONGO_DB_NAME = note-app
+MONGO_DB_COLLECT = notes
