@@ -1,9 +1,7 @@
 const express = require("express");
 const body_parser = require("body-parser");
 const path = require("path");
-
 require("dotenv").config();
-
 const Notes = require("./database");
 const updateRouter = require("./update-router");
 const app = express();
@@ -90,12 +88,27 @@ app.post("/updatepage", (req, res, next) => {
 
 // CRUD operations for Notes schema
 // Create
-app.post("/api/note", (req, res, next) => {
-  const { title, description } = req.body;
+/* app.post("/api/note", (req, res, next) => {
   const note = new Notes({ title, description });
+  note.title = req.body.title;
+  console.log(note.title);
+  note.description = req.body.description;
+  console.log(note.description);
   note.save((err, note) => {
     if (err) return next(err);
     res.status(201).json({});
+  });
+}); */
+app.route("/api/note").post((req, res, next) => {
+  console.log(req.body);
+  const { title, description } = req.body;
+  const note = new Notes({ title, description });
+  note.save((err, savedNote) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Error al guardar la nota" });
+    }
+    res.status(201).json(savedNote);
   });
 });
 
@@ -105,14 +118,14 @@ app.get("/api/note/:id", (req, res, next) => {
   const { id } = req.params;
   Notes.findById(id, (err, note) => {
     if (err) return next(err);
-    res.status(201).json(note);
+    res.status(200).json(note);
   });
 });
 // Read all
 app.get("/api/note", (req, res, next) => {
   Notes.find({}, (err, notes) => {
     if (err) return next(err);
-    res.status(201).json(notes);
+    res.status(200).json(notes);
   });
 });
 
@@ -136,7 +149,7 @@ app.delete("/api/note/:id", (req, res, next) => {
   Notes.findByIdAndRemove(id, { useFindAndModify: false }, (err, document) => {
     if (err) return next(err);
     res
-      .status(500)
+      .status(200)
       .json({ deleted: true, document, message: "Note deleted successfully" });
   });
 });

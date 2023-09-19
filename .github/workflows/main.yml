@@ -5,9 +5,21 @@ on:
     branches:
       - main
 
-jobs:      
+jobs:
   build:
     runs-on: ubuntu-latest
+     environment:
+       name: ENV
+     env:
+       DATABASE_URL: ${{vars.DATABASE_URL}}
+       API_IA: ${{vars.API_IA}}
+       MONGO_DB_USR: ${{vars.MONGO_DB_USR}}
+       MONGO_DB_PWD: ${{vars.MONGO_DB_PWD}}
+       MONGO_DB_HOST: ${{vars.MONGO_DB_HOST}}
+       PORT: ${{vars.PORT}}
+       PORTLog: ${{vars.PORTLog}}
+       MONGO_DB_NAME: ${{vars.MONGO_DB_NAME}}
+       MONGO_DB_COLLECT: ${{vars.MONGO_DB_COLLECT}}
 
     steps:
       - name: ${{ github.actor }} is Probando 🚀
@@ -45,16 +57,14 @@ jobs:
             eslint-plugin-import@^2.25.3 \
             eslint-config-google@^0.14.0 --save-dev
 
-
-
-      - name: Run ESLint
-        run: npx eslint .
-
+      - name: Run test
+        run: npm run test
+        
       - name: Seed Data
         run: npm run seed
 
       - name: Build and Deploy
-        run: npm run cluster
+        run: npm run start
 
       - name: Cleanup
         run: npm ci
@@ -64,12 +74,3 @@ jobs:
         with:
           name: project-artifacts
           path: path/to/artifacts
-
-      - name: Run test
-        run: npm run test -t main.test.js
-
-      - name: Use New URL Parser
-        run: |
-          mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true });
-
-

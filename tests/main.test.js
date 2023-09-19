@@ -4,15 +4,11 @@ const app = require("../app");
 
 require("dotenv").config();
 
-/* const { MONGO_DB_USR, MONGO_DB_PWD, MONGO_DB_HOST, MONGO_DB_PORT } =
-  process.env;
-const credentials = MONGO_DB_USR ? `${MONGO_DB_USR}:${MONGO_DB_PWD}@` : ""; */
-
 const MONGO_DB_USR = process.env.MONGO_DB_USR;
 const MONGO_DB_PWD = process.env.MONGO_DB_PWD;
-const MONGO_DB_HOST = process.env.MONGO_DB_HOST;
+const MONGO_DB_NAME = process.env.MONGO_DB_NAME;
 
-const mongoURI = `mongodb+srv://${MONGO_DB_USR}:${MONGO_DB_PWD}@cl${MONGO_DB_HOST}`;
+const mongoURI = `mongodb+srv://${MONGO_DB_USR}:${MONGO_DB_PWD}@cluster0.8kikncc.mongodb.net/${MONGO_DB_NAME}`;
 
 /* Connecting to the database before each test. */
 beforeAll(async () => {
@@ -34,7 +30,6 @@ describe("GET /", () => {
   // We're getting / which redirects to /index which renders the view page
   it("should return the view page", async () => {
     const res = await request(app).get("/");
-    // TODO: Change status code to 200
     expect(res.statusCode).toBe(302);
   });
 });
@@ -79,7 +74,7 @@ describe("PUT /api/note/:id", () => {
     const res = await request(app).get("/api/note");
     expect(res.statusCode).toBe(200);
     // Pick the id of any note
-    const { _id, title, description } = res.body[0];
+    const { _id, description } = res.body[0];
     // Let's generate a random title
     const newTitle = Math.random().toString(36).substring(7);
     const res2 = await request(app)
