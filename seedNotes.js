@@ -15,6 +15,7 @@ async function seedNotesToDatabase() {
     notesToSave.push(newNote);
   }
   await Notes.bulkSave(notesToSave);
+  exit();
 }
 
 seedNotesToDatabase();

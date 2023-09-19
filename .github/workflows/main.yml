@@ -8,16 +8,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: env
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      API_IA: ${{ secrets.API_IA }}
-      MONGO_DB_USR: ${{ secrets.MONGO_DB_USR }}
-      MONGO_DB_PWD: ${{ secrets.MONGO_DB_PWD }}
-      MONGO_DB_HOST: ${{ secrets.MONGO_DB_HOST }}
-      PORT: ${{ secrets.PORT }}
-      PORTLog: ${{ secrets.PORTLog }}
-      MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME }}
-      MONGO_DB_COLLECT: ${{ secrets.MONGO_DB_COLLECT }}
+      DATABASE_URL: ${{secrets.DATABASE_URL}}
+      API_IA: ${{secrets.API_IA}}
+      MONGO_DB_USR: ${{secrets.MONGO_DB_USR}}
+      MONGO_DB_PWD: ${{secrets.MONGO_DB_PWD}}
+      MONGO_DB_HOST: ${{secrets.MONGO_DB_HOST}}
+      PORT: ${{secrets.PORT}}
+      PORTLog: ${{secrets.PORTLog}}
+      MONGO_DB_NAME: ${{secrets.MONGO_DB_NAME}}
+      MONGO_DB_COLLECT: ${{secrets.MONGO_DB_COLLECT}}
 
     steps:
       - name: ${{ github.actor }} is Probando 🚀
@@ -33,6 +35,8 @@ jobs:
         with:
           node-version: 16
 
+      - name: run try secret
+        run: echo "mi base de datos es ${{secrets.MONGO_DB_NAME}}"
       - name: Install Dependencies
         run: |
           npm install \
@@ -61,9 +65,6 @@ jobs:
 
       - name: Seed Data
         run: npm run seed
-
-      - name: Build and Deploy
-        run: npm run start
 
       - name: Cleanup
         run: npm ci
