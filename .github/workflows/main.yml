@@ -44,7 +44,7 @@ jobs:
             mongoose@^5.9.10 \
             promise@^8.1.0 \
             pug@^3.0.1 \
-            @opentelemetry/node
+            @opentelemetry/node \
 
       - name: Install Development Dependencies
         run: |
@@ -56,7 +56,7 @@ jobs:
             mongodb@^6.0.0 \
             eslint-action@^1.0.2 \
             eslint-plugin-import@^2.25.3 \
-            eslint-config-google@^0.14.0 --save-dev
+            eslint-config-google@^0.14.0 --save-dev \
 
       - name: Run test
         run: npm run test
