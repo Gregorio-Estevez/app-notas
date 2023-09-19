@@ -33,6 +33,8 @@ jobs:
         with:
           node-version: 16
 
+      - name: run try secret
+        run: echo "mi base de datos es ${{secrets.MONGO_DB_NAME}}"
       - name: Install Dependencies
         run: |
           npm install \
