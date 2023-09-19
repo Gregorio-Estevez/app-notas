@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-    name: env
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       API_IA: ${{ secrets.API_IA }}
