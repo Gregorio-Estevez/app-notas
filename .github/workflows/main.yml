@@ -43,7 +43,8 @@ jobs:
             express@^4.17.1 \
             mongoose@^5.9.10 \
             promise@^8.1.0 \
-            pug@^3.0.1
+            pug@^3.0.1 \
+            @opentelemetry/node
 
       - name: Install Development Dependencies
         run: |
