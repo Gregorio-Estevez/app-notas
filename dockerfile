@@ -1,6 +1,8 @@
 # Usar una imagen base de Node.js
 FROM node:12
 
+LABEL version="1.0"
+
 # Establecer el directorio de trabajo en la imagen
 WORKDIR /app-notas
 
