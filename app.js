@@ -3,6 +3,7 @@ const body_parser = require("body-parser");
 const path = require("path");
 require("dotenv").config();
 const Notes = require("./database");
+const { diag } = require("opentelemetry");
 const updateRouter = require("./update-router");
 const app = express();
 

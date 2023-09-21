@@ -1,26 +1,13 @@
-const express = require("express");
+const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
+const { CollectorTraceExporter } = require('@opentelemetry/exporter-collector-grpc');
+const { registerInstrumentations } = require('@opentelemetry/instrumentation');
 
-const app = express();
+const provider = new NodeTracerProvider();
+const exporter = new CollectorTraceExporter();
+provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
+provider.register();
 
-const logdoc = async () => {
-  app.use((req) => {
-    const clientInfo = req.header["user-agent"];
-
-    const ip = req.ip;
-
-    const queryParams = req.query;
-
-    const requestBody = req.body;
-
-    const logdoc = {
-      client: clientInfo,
-      ip: ip,
-      queryParams: queryParams,
-      requestBody: requestBody,
-    };
-
-    console.log(logdoc);
-  });
-};
-
-module.exports = logdoc;
+// Incorpora la instrumentación para Express.js
+registerInstrumentations({
+  instrumentations: [expressInstrumentation],
+});

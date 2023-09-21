@@ -20,6 +20,29 @@ if (cluster.isMaster) {
   mongoose
     .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
+      app.use((req, res, next) => {
+        const tracer = diag.trace.getTracer("app");
+
+        // Crea un span para la solicitud actual
+        const span = tracer.startSpan("http_request");
+
+        // Agrega atributos al span con la información deseada
+        span.setAttributes({
+          client: req.headers["user-agent"],
+          ip: req.ip,
+          queryParams: JSON.stringify(req.query),
+          requestBody: JSON.stringify(req.body),
+        });
+
+        // Finaliza el span cuando la solicitud se complete
+        res.on("finish", () => {
+          span.end();
+        });
+
+        // Continúa con el siguiente middleware/ruta
+        next();
+      });
+
       app.listen(port, () => {
         console.log(`Server started @ ${port}.`);
       });
