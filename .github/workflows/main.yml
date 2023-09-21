@@ -37,6 +37,8 @@ jobs:
 
       - name: run try secret
         run: echo "mi base de datos es ${{secrets.MONGO_DB_NAME}}"
+
+      # Instalar dependencias Node.js
       - name: Install Dependencies
         run: |
           npm install \
@@ -68,6 +70,12 @@ jobs:
 
       - name: Cleanup
         run: npm ci
+
+      # Agregar el paso para construir la imagen Docker
+      - name: Build Docker Image
+        run: |
+          docker build -t my-node-app .
+          docker images
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
