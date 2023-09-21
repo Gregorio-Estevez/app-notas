@@ -2,7 +2,6 @@ const Notes = require("./database");
 const fs = require("fs");
 const path = require("path");
 const { exit } = require("process");
-
 const notesJSON = fs.readFileSync(path.join(__dirname, "notes.json"));
 const notes = JSON.parse(notesJSON);
 
@@ -16,7 +15,7 @@ async function seedNotesToDatabase() {
     notesToSave.push(newNote);
   }
   await Notes.bulkSave(notesToSave);
-  exit()
+  exit();
 }
 
 seedNotesToDatabase();
