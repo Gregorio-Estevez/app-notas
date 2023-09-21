@@ -8,8 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: env
+
     env:
       MONGO_DB_USR: ${{secrets.MONGO_DB_USR}}
       MONGO_DB_PWD: ${{secrets.MONGO_DB_PWD}}
@@ -20,11 +19,6 @@ jobs:
       MONGO_DB_COLLECT: ${{secrets.MONGO_DB_COLLECT}}
 
     steps:
-      - name: ${{ github.actor }} is Probando 🚀
-        run: |
-          echo "El actor de GitHub es ${{ github.actor }} y está probando el flujo de trabajo."
-          echo "Este es un mensaje personalizado para el flujo de trabajo."
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -33,52 +27,39 @@ jobs:
         with:
           node-version: 16
 
-      # Instalar dependencias Node.js
       - name: Install Dependencies
-        run: |
-          npm install \
-            dotenv@^16.3.1 \
-            body-parser@^1.19.0 \
-            express@^4.17.1 \
-            mongoose@^5.9.10 \
-            promise@^8.1.0 \
-            pug@^3.0.1 \
-            @opentelemetry/node
+        run: npm install
+        working-directory: ./your_project_directory
 
       - name: Install Development Dependencies
-        run: |
-          npm install \
-            cross-env@^7.0.3 \
-            jest@^29.6.4 \
-            supertest@^6.3.3 \
-            eslint@^8.48.0 \
-            mongodb@^6.0.0 \
-            eslint-action@^1.0.2 \
-            eslint-plugin-import@^2.25.3 \
-            eslint-config-google@^0.14.0 --save-dev
+        run: npm install --save-dev
+        working-directory: ./your_project_directory
 
-      - name: Run test
+      - name: Run Tests
         run: npm run test
+        working-directory: ./your_project_directory
 
       - name: Seed Data
         run: npm run seed
+        working-directory: ./your_project_directory
 
       - name: Cleanup
         run: npm ci
+        working-directory: ./your_project_directory
 
-      name: Login to Docker Hub
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Set up Docker Buildx
+
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      -
-        name: Build and push
+
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
+          dockerfile: ./Dockerfile
           push: true
           tags: app-notas/clockbox:latest
