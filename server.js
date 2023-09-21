@@ -1,3 +1,6 @@
+OpenTelemerty;
+Importaciones;
+const express = require("express");
 const { Collector, MeterProvider } = require("@opentelemetry/node");
 
 const mongoose = require("mongoose");
@@ -21,10 +24,6 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-// OpenTelemerty
-// // Importaciones
-// const express = require("express");
-// const { Collector, MeterProvider } = require("@opentelemetry/node");
 
 // Inicialización de OpenTelemetry
 const collector = new Collector();
@@ -49,8 +48,5 @@ app.use((req, res, next) => {
 // Configuración del colector de OpenTelemetry ( Puerto Default de signoz )
 collector.setExporter({
   type: "otlp",
-  endpoint: "http://localhost:9411/v1/traces",
+  endpoint: "http://localhost:3000/index",
 });
-
-// Inicio del servidor
-app.listen(3000, () => console.log("Servidor iniciado en el puerto 3000"));
