@@ -11,8 +11,6 @@ jobs:
     environment:
       name: env
     env:
-      DATABASE_URL: ${{secrets.DATABASE_URL}}
-      API_IA: ${{secrets.API_IA}}
       MONGO_DB_USR: ${{secrets.MONGO_DB_USR}}
       MONGO_DB_PWD: ${{secrets.MONGO_DB_PWD}}
       MONGO_DB_HOST: ${{secrets.MONGO_DB_HOST}}
@@ -33,10 +31,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16
-
-      - name: run try secret
-        run: echo "mi base de datos es ${{secrets.MONGO_DB_NAME}}"
+          node-version: 12
 
       # Instalar dependencias Node.js
       - name: Install Dependencies

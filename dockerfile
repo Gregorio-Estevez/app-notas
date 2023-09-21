@@ -1,5 +1,5 @@
 # Usar una imagen base de Node.js
-FROM node:16
+FROM node:12
 
 # Establecer el directorio de trabajo en la imagen
 WORKDIR /app-notas
